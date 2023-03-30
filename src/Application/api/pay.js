@@ -25,9 +25,9 @@ const RiafLiveDatas = {
 
 const testDatas = {
     "Content-Type": "application/json",
-    "PAYDUNYA-MASTER-KEY": 'nQfz6ZsX-PTLT-2psn-DLh4-5LBcIg5W9B6J',
-    "PAYDUNYA-PRIVATE-KEY": 'test_private_YS3eQvnaE4ugUGrnj91AY9ZRhG9',
-    "PAYDUNYA-TOKEN": '7qjcruClJ7J6PoY9tpIT'
+    "PAYDUNYA-MASTER-KEY": process.env.TEST_PAYDUNYA_MASTER_KEY,
+    "PAYDUNYA-PRIVATE-KEY": process.env.TEST_PAYDUNYA_PRIVATE_KEY,
+    "PAYDUNYA-TOKEN": process.env.TEST_PAYDUNYA_TOKEN
 }
 
 
@@ -63,8 +63,8 @@ export function getInvoices(amout) {
     let response = "";
     axios.post(liveurl, completeData, { headers: RiafLiveDatas }).then(responses => {
         response = responses;
-        // console.log(response.data.response_text);
-        window.open(response.data.response_text, "_self");
+        console.log(response.data.response_text);
+        // window.open(response.data.response_text, "_self");
     }).catch(reason => {
         console.log(reason);
     })
