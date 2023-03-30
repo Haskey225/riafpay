@@ -17,17 +17,21 @@ function App(props) {
 
   const [state, setState] = React.useState(initState)
 
+  
   const handleChange = e => {
     const { name, value } = e.target
     setState({ ...state, [name]: value })
     setAmount(initState.amounte)
   }
+
+
   const payment = () => {
     if (parseInt(state.amounte) > 1000) {
       getInvoices(state.amounte);
     }
 
   }
+
 
   return (
     <>

@@ -6,7 +6,7 @@ const testurl = 'https://app.paydunya.com/sandbox-api/v1/checkout-invoice/create
 
 const data = {
 
-    "invoice": {
+    "invoice": { 
         "total_amount": 5000,
         "description": "Chaussure VANS dernier modèle"
     },
