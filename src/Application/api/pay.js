@@ -16,18 +16,11 @@ const data = {
 }
 
 
-const liveDatas = {
-    "Content-Type": "application/json",
-    "PAYDUNYA-MASTER-KEY": 'nQfz6ZsX-PTLT-2psn-DLh4-5LBcIg5W9B6J',
-    "PAYDUNYA-PRIVATE-KEY": 'live_private_FxNBF6kZ2iLEEq3JDuK0dbHMFRj',
-    "PAYDUNYA-TOKEN": 'eJwG4X8m1z54w5fSxD2b'
-}
-
 const RiafLiveDatas = {
     "Content-Type": "application/json",
-    "PAYDUNYA-MASTER-KEY": '9eVZAbCZ-uuqK-a3PG-BlGZ-zuBJ3v1Qtxj7',
-    "PAYDUNYA-PRIVATE-KEY": 'live_private_FxNBF6kZ2iLEEq3JDuK0dbHMFRj',
-    "PAYDUNYA-TOKEN": 'eJwG4X8m1z54w5fSxD2b'
+    "PAYDUNYA-MASTER-KEY": process.env.PAYDUNYA_MASTER_KEY,
+    "PAYDUNYA-PRIVATE-KEY": process.env.PAYDUNYA_PRIVATE_KEY,
+    "PAYDUNYA-TOKEN": process.env.PAYDUNYA_TOKEN
 }
 
 const testDatas = {
