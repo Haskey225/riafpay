@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { UserContext } from './Application/Context/UserContextProvider';
 import './app.css';
 import { logo } from './Application/Image';
-// import { getInvoices } from './Application/api/pay';
+import { getInvoices } from './Application/api/pay';
 import { apiTest } from './Application/api/data';
 import { datas } from './Application/api/data';
 
@@ -10,7 +10,8 @@ const initState = {
   name: "",
   motif: "",
   tel: '',
-  amounte: 0
+  amounte: '',
+  amountepay: ''
 }
 
 
@@ -28,8 +29,16 @@ function App(props) {
   const [loyerA, setLoyerA] = useState(datas.N1.loyer);
 
   const handleChange = e => {
-    const { name, value } = e.target
-    setState({ ...state, [name]: value })
+    const { name, value } = e.target;
+    console.log(parseInt(e.target.name));
+    if ((e.target.name === 'amounte') || (e.target.name === 'amountepay')) {
+      if (!isNaN(e.target.value)) {
+        setState({ ...state, [name]: value });
+      }
+    } else {
+
+      setState({ ...state, [name]: value });
+    }
   }
 
 
@@ -37,6 +46,11 @@ function App(props) {
     apiTest();
     if (parseInt(state.amounte) > 1000) {
       // getInvoices(state.amounte); //Pour les paimement
+      if (dispInvoice === 'none') {
+        getInvoices(state.amountepay); //Rent amount aplyed
+      } else {
+        getInvoices(state.amounte); //Invoice amount aplyed
+      }
     }
 
   }
@@ -109,15 +123,17 @@ function App(props) {
           <input type="text" value={telN} readOnly name="tel" id="name" placeholder="Numéro de telephone" />
           <label id="icon" htmlFor="amounte"><i className="fas fa-light fa-dollar-sign"></i></label>
           <input type="text" value={loyerA} readOnly name="amounte" id="name" placeholder="Montant" />
+          <label id="icon" htmlFor="amountepay"><i className="fas fa-light fa-dollar-sign"></i></label>
+          <input type="text" value={state.amountepay} name="amountepay" id="name" placeholder="je paie" required onChange={handleChange} />
         </div>
-        <div className='content-type' style={{display: dispInvoice}}>
+        <div className='content-type' style={{ display: dispInvoice }}>
           <hr style={{ display: show }} />
           <label id="icon" htmlFor="name"><i className="fas fa-user"></i></label>
           <input type="text" name="name" id="name" placeholder="Nom complet" required value={state.name} onChange={handleChange} />
           <label id="icon" htmlFor="tel"><i className="fas fa-thin fa-phone"></i></label>
           <input type="text" name="tel" id="name" placeholder="Numéro de telephone" required value={state.tel} onChange={handleChange} />
           <label id="icon" htmlFor="amounte"><i className="fas fa-light fa-dollar-sign"></i></label>
-          <input type="text" name="amounte" id="name" placeholder="Montant" required value={state.amounte} onChange={handleChange} />
+          <input type="text" name="amounte" id="name" placeholder="je paie" required value={state.amounte} onChange={handleChange} />
 
         </div>
         <hr />

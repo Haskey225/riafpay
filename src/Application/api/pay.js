@@ -34,6 +34,7 @@ const testDatas = {
 
 
 export function getInvoices(amout) {
+    console.log(amout)
     const completeData = {
         "invoice": {
             "items": {
