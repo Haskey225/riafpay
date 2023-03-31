@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './app.css';
 import { logo } from './Application/Image';
 import { getInvoices } from './Application/api/pay';
-import { apiTest } from './Application/api/data';
+// import { apiTest } from './Application/api/data';
 import { datas } from './Application/api/data';
 
 const initState = {
@@ -43,7 +43,6 @@ function App(props) {
 
 
   const payment = () => {
-    apiTest();
     if (parseInt(state.amounte) > 1000) {
       // getInvoices(state.amounte); //Pour les paimement
       if (dispInvoice === 'none') {
@@ -82,7 +81,7 @@ function App(props) {
 
   return (
     <>
-      <div className="main-block">
+      <div className="main-block" style={{marginTop: '20px'}}>
         <div className='logo-box'>
           <img className='logo' src={logo} alt='logo' />
         </div>
@@ -120,9 +119,11 @@ function App(props) {
           <label id="icon" htmlFor="name"><i className="fas fa-user"></i></label>
           <input type="text" value={rentName} readOnly name="name" id="name" placeholder="Nom complet" />
           <label id="icon" htmlFor="tel"><i className="fas fa-thin fa-phone"></i></label>
-          <input type="text" value={telN} readOnly name="tel" id="name" placeholder="Numéro de telephone" />
-          <label id="icon" htmlFor="amounte"><i className="fas fa-light fa-dollar-sign"></i></label>
-          <input type="text" value={loyerA} readOnly name="amounte" id="name" placeholder="Montant" />
+          <input type="text" value={telN} readOnly name="tel" id="name" pattern="[0-9]{2}-[0-9]{2}-[0-9]{3}-[0-9]{3}" maxLength={10} placeholder="Numéro de telephone" />
+          <div style={{ display: 'none' }}>
+            <label id="icon" htmlFor="amounte" hidden><i className="fas fa-light fa-dollar-sign"></i></label>
+            <input type="text" value={loyerA} hidden readOnly name="amounte" id="name" placeholder="Montant" />
+          </div>
           <label id="icon" htmlFor="amountepay"><i className="fas fa-light fa-dollar-sign"></i></label>
           <input type="text" value={state.amountepay} name="amountepay" id="name" placeholder="je paie" required onChange={handleChange} />
         </div>
@@ -137,7 +138,7 @@ function App(props) {
 
         </div>
         <hr />
-        <div className="gender">
+        <div className="gender" style={{display: 'none'}}>
           <h4>Je suis: </h4>
           <input type="radio" value="none" id="male" name="gender" defaultChecked />
           <label htmlFor="male" className="radio">Un homme</label>

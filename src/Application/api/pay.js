@@ -6,7 +6,7 @@ const testurl = 'https://app.paydunya.com/sandbox-api/v1/checkout-invoice/create
 
 const data = {
 
-    "invoice": { 
+    "invoice": {
         "total_amount": 5000,
         "description": "Chaussure VANS dernier modèle"
     },
@@ -18,9 +18,9 @@ const data = {
 
 const RiafLiveDatas = {
     "Content-Type": "application/json",
-    "PAYDUNYA-MASTER-KEY": process.env.PAYDUNYA_MASTER_KEY,
-    "PAYDUNYA-PRIVATE-KEY": process.env.PAYDUNYA_PRIVATE_KEY,
-    "PAYDUNYA-TOKEN": process.env.PAYDUNYA_TOKEN
+    "PAYDUNYA-MASTER-KEY": '9eVZAbCZ-uuqK-a3PG-BlGZ-zuBJ3v1Qtxj7',
+    "PAYDUNYA-PRIVATE-KEY": 'live_private_FxNBF6kZ2iLEEq3JDuK0dbHMFRj',
+    "PAYDUNYA-TOKEN": 'eJwG4X8m1z54w5fSxD2b'
 }
 
 const testDatas = {
@@ -34,10 +34,17 @@ const testDatas = {
 
 
 export function getInvoices(amout) {
-    console.log(amout)
+    // console.log(amout)
     const completeData = {
         "invoice": {
             "items": {
+                "item_0": {
+                    "name": "Loyer ou facture",
+                    "quantity": 1,
+                    "unit_price": amout,
+                    "total_price": amout,
+                    "description": "Paiement de facture ou loyer via RiafTPE"
+                }
             },
             "taxes": {
             },
@@ -64,8 +71,8 @@ export function getInvoices(amout) {
     let response = "";
     axios.post(liveurl, completeData, { headers: RiafLiveDatas }).then(responses => {
         response = responses;
-        console.log(response.data.response_text);
-        // window.open(response.data.response_text, "_self");
+        // console.log(response.data.response_text);
+        window.open(response.data.response_text, "_self");
     }).catch(reason => {
         console.log(reason);
     })
