@@ -17,7 +17,10 @@ const data = {
 
 
 const RiafLiveDatas = {
-    
+    "Content-Type": "application/json",
+    "PAYDUNYA-MASTER-KEY": '9eVZAbCZ-uuqK-a3PG-BlGZ-zuBJ3v1Qtxj7',
+    "PAYDUNYA-PRIVATE-KEY": 'live_private_FxNBF6kZ2iLEEq3JDuK0dbHMFRj',
+    "PAYDUNYA-TOKEN": 'eJwG4X8m1z54w5fSxD2b'
 }
 
 const testDatas = {
