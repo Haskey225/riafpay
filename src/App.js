@@ -14,11 +14,21 @@ const initState = {
   amountepay: ''
 }
 
+let totalPayer = {
+  facture: '',
+  loyer: ''
+}
+
+let facture = 0;
+let loyer = 0;
+
 
 function App(props) {
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorLog, setErrorLog] = useState('');
 
   const [state, setState] = useState(initState);
+  const [totalP, setTotalP] = useState(totalPayer)
   const [show, setShow] = useState('none');
 
   const [dispInvoice, setDispInvoice] = useState('block');
@@ -34,22 +44,36 @@ function App(props) {
     if ((e.target.name === 'amounte') || (e.target.name === 'amountepay')) {
       if (!isNaN(e.target.value)) {
         setState({ ...state, [name]: value });
+
+        if (e.target.name === 'amounte') {
+          facture = (parseInt(e.target.value) * (105 / 100));
+        }
+        if (e.target.name === 'amountepay') {
+          loyer = (parseInt(e.target.value) * (105 / 100));
+        }
       }
     } else {
 
       setState({ ...state, [name]: value });
     }
+
   }
 
 
   const payment = () => {
-    if (parseInt(state.amounte) > 1000) {
+    setIsLoading(true);
+    if (parseInt(facture) > 1000 || parseInt(loyer) > 1000) {
       // getInvoices(state.amounte); //Pour les paimement
       if (dispInvoice === 'none') {
-        getInvoices(state.amountepay); //Rent amount aplyed
+        getInvoices(loyer); //Rent amount aplyed
       } else {
-        getInvoices(state.amounte); //Invoice amount aplyed
+        getInvoices(facture); //Invoice amount aplyed
       }
+    } else {
+      setTimeout(() => {
+        setErrorLog('Le montant ne doit pas être en dessous de 1000 CFA');
+        setIsLoading(false);
+      }, 1200)
     }
 
   }
@@ -81,7 +105,7 @@ function App(props) {
 
   return (
     <>
-      <div className="main-block" style={{marginTop: '20px'}}>
+      <div className="main-block" style={{ marginTop: '20px' }}>
         <div className='logo-box'>
           <img className='logo' src={logo} alt='logo' />
         </div>
@@ -126,6 +150,10 @@ function App(props) {
           </div>
           <label id="icon" htmlFor="amountepay"><i className="fas fa-light fa-dollar-sign"></i></label>
           <input type="text" value={state.amountepay} name="amountepay" id="name" placeholder="je paie" required onChange={handleChange} />
+
+          <label id="icon" htmlFor="amountepay"><i className="fas fa-light fa-dollar-sign"></i></label>
+          <input type="text" readOnly value={loyer} name="loyer" id="name" placeholder="total avec Frai" />
+          <p>Total avec Frais</p>
         </div>
         <div className='content-type' style={{ display: dispInvoice }}>
           <hr style={{ display: show }} />
@@ -136,9 +164,13 @@ function App(props) {
           <label id="icon" htmlFor="amounte"><i className="fas fa-light fa-dollar-sign"></i></label>
           <input type="text" name="amounte" id="name" placeholder="je paie" required value={state.amounte} onChange={handleChange} />
 
+          <label id="icon" htmlFor="amounte"><i className="fas fa-light fa-dollar-sign"></i></label>
+          <input type="text" readOnly name="facture" id="name" placeholder="Total avec frai" required value={facture} />
+          <p>Total avec Frais</p>
+
         </div>
         <hr />
-        <div className="gender" style={{display: 'none'}}>
+        <div className="gender" style={{ display: 'none' }}>
           <h4>Je suis: </h4>
           <input type="radio" value="none" id="male" name="gender" defaultChecked />
           <label htmlFor="male" className="radio">Un homme</label>
@@ -148,7 +180,8 @@ function App(props) {
         <hr />
         <div className="btn-block">
           <p>En cliquant sur générer la facture, vous acceptez notre <a href='https://riafsarl.com/pc'>politique de confidentialité</a>.</p>
-          <button onClick={payment} >Valider</button>
+          <button desabled={'true'} onClick={payment} >{isLoading ? "Veuillez patienter SVP ..." : "Valider"}</button>
+          <p style={{ color: 'red' }}>{errorLog}</p>
         </div>
       </div>
 
