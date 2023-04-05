@@ -5,22 +5,19 @@ import { logo } from './Application/Image';
 import { getInvoices } from './Application/api/pay';
 // import { apiTest } from './Application/api/data';
 import { datas } from './Application/api/data';
+import { getApart, getUser } from './Application/Functions/AppFunction';
 
 const initState = {
   name: "",
   motif: "",
   tel: '',
-  amounte: '',
-  amountepay: ''
+  amounte: '',// = Facture
+  amountepay: ''// = Loyer
 }
 
-let totalPayer = {
-  facture: '',
-  loyer: ''
-}
 
-let facture = 0;
-let loyer = 0;
+let facture = 0; // = amounte
+let loyer = 0; // = amountepay
 
 
 function App(props) {
@@ -28,12 +25,10 @@ function App(props) {
   const [errorLog, setErrorLog] = useState('');
 
   const [state, setState] = useState(initState);
-  const [totalP, setTotalP] = useState(totalPayer)
   const [show, setShow] = useState('none');
 
   const [dispInvoice, setDispInvoice] = useState('block');
 
-  const [rentSelected, setSrentSelected] = useState('N1');
   const [rentName, setRentName] = useState(datas.N1.occupant);
   const [telN, setTelN] = useState(datas.N1.tel);
   const [loyerA, setLoyerA] = useState(datas.N1.loyer);
@@ -76,6 +71,7 @@ function App(props) {
       }, 1200)
     }
 
+  
   }
 
   // Hidden rent content
