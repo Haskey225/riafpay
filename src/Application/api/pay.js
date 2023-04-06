@@ -17,19 +17,6 @@ const testurl = "https://app.paydunya.com/sandbox-api/v1/checkout-invoice/create
 // }
 
 
-const RiafLiveDatas = {
-    "Content-Type": "application/json",
-    "PAYDUNYA-MASTER-KEY": "nQfz6ZsX-PTLT-2psn-DLh4-5LBcIg5W9B6J",
-    "PAYDUNYA-PRIVATE-KEY": "test_private_MDsVRoRxmVQH0Q45mcz4LpNYpKW",
-    "PAYDUNYA-TOKEN": "XqmNApaz3YO9vP0vDFFH"
-}
-
-const testDatas = {
-    "Content-Type" : "application/json",
-    "PAYDUNYA-MASTER-KEY": "nQfz6ZsX-PTLT-2psn-DLh4-5LBcIg5W9B6J",
-    "PAYDUNYA-PRIVATE-KEY": "live_private_TPxeTwx2Xpd84pWrfCJaTRJdFV8",
-    "PAYDUNYA-TOKEN": "78BHGYRwpv7GGgc5TIxf"
-}
 
 
 
