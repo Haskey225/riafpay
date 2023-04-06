@@ -1,14 +1,13 @@
-import axios, { AxiosHeaders, HeadersDefaults } from "axios";
 export async function getUser() {
-    const datas = {
-        action: 'find',
-        tbl: 'apartement'
-    }
+    // const datas = {
+    //     action: 'find',
+    //     tbl: 'apartement'
+    // }
 
 
-    const headers = {
-        'Content-Type': 'Application/JSON'
-    }
+    // const headers = {
+    //     'Content-Type': 'Application/JSON'
+    // }
 
     // let respon = await fetch('http://localhost/haskeyRest/data/', {
     //     method: "POST", // POST, PUT, DELETE, etc.
@@ -48,4 +47,109 @@ export async function getApart() {
     const data = await respo.json();
     // console.log(data['0'].occupant);
     return data;
+}
+
+export const getRemoteMarchant = async (wallet) => {
+    const cond = {
+        wallet:wallet
+    }
+    const request = `/?action=find&tbl=marchant&${cond}`;
+    console.log('Getting Data ...')
+    const respo = await fetch(`http://localhost/haskeyRest/data${request}`);
+    console.log('Fetching datas')
+    const val = await respo.json();
+    console.log('Display datas')
+    console.log(val.marchant_id);
+    // return val;
+}
+export const getPostRemoteMarchant = async (wallet) => {
+    const cond = {
+        wallet: wallet
+    };
+    let datas = {
+        'action': 'find',
+        'tbl': 'marchant'
+    }
+    // const request = `/?action=find&tbl=marchant&${cond}`;
+    console.log('Getting Data ...')
+    const respo = await fetch(`http://localhost/haskeyRest/api/`,{
+        method: 'POST',
+        headers:{
+
+        },
+        body: JSON.stringify(datas),
+        mode: 'no-cors'
+    });
+    console.log('Fetching datas');
+    const val = await respo.json();
+    console.log('Display datas');
+    console.log(val);
+    // return val;
+}
+
+export const getParameters = () => {
+
+    // Address of the current window
+    const address = window.location.search
+
+    // Returns a URLSearchParams object instance
+    const parameterList = new URLSearchParams(address)
+
+    // Created a map which holds key value pairs
+    let map = new Map()
+
+    // Storing every key value pair in the map
+    parameterList.forEach((value, key) => {
+        map.set(key, value)
+    })
+
+    // Returning the map of GET parameters
+    return map
+}
+export const getMarchantName = () => {
+
+    // Address of the current window
+    const address = window.location.search
+
+    // Returns a URLSearchParams object instance
+    const parameterList = new URLSearchParams(address)
+
+    // Created a map which holds key value pairs
+    let map = new Map()
+
+    // Storing every key value pair in the map
+    parameterList.forEach((value, key) => {
+        map.set(key, value)
+    })
+    let marchant_id =  '';
+    parameterList.forEach((val, key) => {
+        marchant_id = val;
+    })
+
+    // Returning the map of GET parameters
+    // return map
+    return marchant_id;
+}
+
+
+export const getVerified = () => {
+    let marchantName = '';
+
+    // Address of the current window
+    const address = window.location.search
+
+    // Returns a URLSearchParams object instance
+    const parameterList = new URLSearchParams(address)
+
+    // Created a map which holds key value pairs
+    let map = new Map()
+
+    // Storing every key value pair in the map
+    parameterList.forEach((value, key) => {
+        map.set(key, value)
+    })
+
+    // Returning the map of GET parameters
+    // return map
+    return parameterList;
 }
