@@ -59,7 +59,7 @@ function App(props) {
     // const vals = getPostRemoteMarchant('2250505420552');
     // console.log(vals);
     if (parseInt(facture) > 1000) {
-      // getInvoices(state.amounte); //Pour les paimement
+      // getInvoices(facture, state.amounte, 'AF', '0505420552'); //Pour les paimement
       // GetInvoices(facture); //Invoice amount aplyed
     } else {
       setTimeout(() => {

@@ -17,6 +17,19 @@ const testurl = "https://app.paydunya.com/sandbox-api/v1/checkout-invoice/create
 // }
 
 
+const RiafLiveDatas = {
+    "Content-Type": "application/json",
+    "PAYDUNYA-MASTER-KEY": "nQfz6ZsX-PTLT-2psn-DLh4-5LBcIg5W9B6J",
+    "PAYDUNYA-PRIVATE-KEY": "test_private_MDsVRoRxmVQH0Q45mcz4LpNYpKW",
+    "PAYDUNYA-TOKEN": "XqmNApaz3YO9vP0vDFFH"
+}
+
+const testDatas = {
+    "Content-Type": "application/json",
+    "PAYDUNYA-MASTER-KEY": "nQfz6ZsX-PTLT-2psn-DLh4-5LBcIg5W9B6J",
+    "PAYDUNYA-PRIVATE-KEY": "live_private_TPxeTwx2Xpd84pWrfCJaTRJdFV8",
+    "PAYDUNYA-TOKEN": "78BHGYRwpv7GGgc5TIxf"
+}
 
 
 
@@ -68,10 +81,13 @@ export async function GetInvoices(amout, balance = 0, ma_name = 'null', m_wallet
 
     let response = "";
     axios.post(testurl, completeData, { headers: RiafLiveDatas }).then(responses => {
-        response = responses;
-        console.log(response);
+        if (responses.data.response_code === "00") {
+            console.log('Facture creer avec succes')
+            // window.open(response.data.response_text, "_self");
+        } else {
+            console.log("Echque de la creation de la facture")
+        }
 
-        // window.open(response.data.response_text, "_self");
     }).catch(reason => {
         console.log(reason);
     })
@@ -79,15 +95,48 @@ export async function GetInvoices(amout, balance = 0, ma_name = 'null', m_wallet
     return response;
 }
 
+
+
+
 export async function SendMoney() {
     const url = "https://app.paydunya.com/api/v1/disburse/get-invoice";
     const param = {
         'account_alias': '0505420552',
-        'amount': 5000,
+        'amount': 1000,
         'withdraw_mode': 'mtn-ci'
     }
+
     axios.post(url, param, { headers: testDatas }).then(resp => {
-        console.log(resp);
+        // console.log(resp.data.response_code);
+        if (resp.data.response_code === "00") {
+            console.log("token");
+            const token = resp.data.disburse_token
+
+            if (token) {
+                const url2 = "https://app.paydunya.com/api/v1/disburse/submit-invoice"
+                const valide = {
+                    "disburse_invoice": "hwTHAS0WvTmTaYT2zDoO ",
+                    " disburse_id ": "456678900309"
+                }
+
+                axios.post(url2, valide, { headers: testDatas }).then(response => {
+                    if (response.data.response_code === "00") {
+                        return response;
+                    } else {
+                        return false
+                    }
+                })
+            }
+
+        } else {
+            if (resp.data.response_code === "4002") {
+                console.log('Fond insufisant')
+                return false;
+            }
+        }
     });
+
+
+
 }
 

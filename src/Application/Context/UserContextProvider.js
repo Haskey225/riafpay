@@ -16,7 +16,7 @@ export default function UserContextProvider(props) {
             setLoadded(false)
             setTimeout(() => {
                 setIsGLoading(false);
-            }, 5000)
+            }, 1000)
         } else {
             setLoadded(true)
         }
