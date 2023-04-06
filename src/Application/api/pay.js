@@ -132,6 +132,8 @@ export async function SendMoney() {
             if (resp.data.response_code === "4002") {
                 console.log('Fond insufisant')
                 return false;
+            } else{
+                console.log('Un probleme est survenu')
             }
         }
     });
