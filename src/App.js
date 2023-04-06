@@ -33,7 +33,12 @@ function App(props) {
   const [errorLog, setErrorLog] = useState('');
 
   const [state, setState] = useState(initState);
+  const [isSteMarchant, setIsSteMarchant] = useState(false);
 
+  const idm = getMarchantName();
+  if(idm !== null){
+    setIsSteMarchant(true);
+  }
   const handleChange = e => {
     const { name, value } = e.target;
     console.log(parseInt(e.target.name));
