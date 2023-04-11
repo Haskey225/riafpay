@@ -36,9 +36,10 @@ function App(props) {
   const [isSteMarchant, setIsSteMarchant] = useState(false);
 
   const idm = getMarchantName();
-  if(idm !== null){
-    setIsSteMarchant(true);
+  if(idm){
+    // setIsSteMarchant(true);
   }
+  console.log(idm);
   const handleChange = e => {
     const { name, value } = e.target;
     console.log(parseInt(e.target.name));
@@ -72,7 +73,7 @@ function App(props) {
         setIsLoading(false);
       }, 1200)
     }
-    SendMoney();
+    // SendMoney();
     // getRemoteMarchant(vals);
   }
 
